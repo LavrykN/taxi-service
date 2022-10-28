@@ -41,3 +41,26 @@ class PrivateCarTests(TestCase):
             list(Car.objects.all())
         )
         self.assertTemplateUsed(response, "taxi/car_list.html")
+
+    def test_search_car(self):
+        manufacturer = Manufacturer.objects.create(
+            name="Ford Motor Company",
+            country="USA"
+        )
+        Car.objects.create(
+            model="Ford Focus 4",
+            manufacturer=manufacturer
+        )
+        Car.objects.create(
+            model="Cadillac Escalade",
+            manufacturer=manufacturer
+        )
+
+        response = self.client.get(CAR_URL + "?model=Ford")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["car_list"]), 1)
+        self.assertEqual(
+            Car(**response.context["car_list"].values()[0]).model,
+            "Ford Focus 4"
+        )

@@ -39,3 +39,28 @@ class PrivateDriverTests(TestCase):
             list(Driver.objects.all())
         )
         self.assertTemplateUsed(response, "taxi/driver_list.html")
+
+    def test_search_driver(self):
+        get_user_model().objects.create_user(
+            username="joyce.byers",
+            password="qwe123",
+            first_name="Joyce",
+            last_name="Byers",
+            license_number="JOY26458"
+        )
+        get_user_model().objects.create_user(
+            username="mike.wheeler",
+            password="qwe123",
+            first_name="Mike",
+            last_name="Wheeler",
+            license_number="MIK25131"
+        )
+
+        response = self.client.get(DRIVER_URL + "?username=joy")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["driver_list"]), 1)
+        self.assertEqual(
+            Driver(**response.context["driver_list"].values()[0]).username,
+            "joyce.byers"
+        )

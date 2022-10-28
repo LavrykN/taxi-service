@@ -3,6 +3,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from taxi.models import Manufacturer
+from taxi.views import ManufacturerListView
 
 MANUFACTURER_URL = reverse("taxi:manufacturer-list")
 
@@ -36,3 +37,19 @@ class PrivateManufacturerTests(TestCase):
             list(Manufacturer.objects.all())
         )
         self.assertTemplateUsed(response, "taxi/manufacturer_list.html")
+
+    def test_search_manufacturer(self):
+        Manufacturer.objects.create(name="Lincoln", country="USA")
+        Manufacturer.objects.create(name="Suzuki", country="Japan")
+        Manufacturer.objects.create(name="Volkswagen", country="Germany")
+
+        response = self.client.get(MANUFACTURER_URL + "?name=Lin")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["manufacturer_list"]), 1)
+        self.assertEqual(
+            Manufacturer(
+                **response.context["manufacturer_list"].values()[0]
+            ).name,
+            "Lincoln"
+        )

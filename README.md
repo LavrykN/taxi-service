@@ -21,7 +21,7 @@ git clone https://github.com/LavrykN/taxi-service.git
 Create and activate venv environment
 ```shell
 python3 -m venv venv
-source venv/bin/activate
+source venv/bin/activate (on Linux) or venv\Scripts\activate (on Windows)
 ```
 
 Install requirements
@@ -31,12 +31,12 @@ pip install -r requirements.txt
 
 Migrate migrations
 ```shell
-python3 manage.py migrate
+python manage.py migrate
 ```
 
 If you want you can add template data to the project
 ```shell
-python3 manage.py loaddata test_db_data.json
+python manage.py loaddata test_db_data.json
 ```
 
 Run server
