@@ -2,6 +2,10 @@
 
 Django project for management cars, drivers, and manufacturers of Taxi Service
 
+## Demo image
+
+![Website Interface](demo.png)
+
 ## Try it on Heroku!
 
 [Taxi Service on Heroku](https://taxi-service441.herokuapp.com/)
@@ -50,8 +54,5 @@ python manage.py runserver
 * Managing cars, drivers, and manufacturers using CRUD operations from the website
 * Powerful admin panel for managing
 
-## Demo image
-
-![Website Interface](demo.png)
 
 
