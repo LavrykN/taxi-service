@@ -4,7 +4,7 @@ Django project for management cars, drivers, and manufacturers of Taxi Service
 
 ## Demo image
 
-![Website Interface](demo.png)
+![Website Interface](demo1.png)
 
 ## Try it on Heroku!
 
